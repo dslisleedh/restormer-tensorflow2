@@ -3,9 +3,9 @@ from einops import rearrange
 from einops.layers.keras import Rearrange
 
 
-class WithBaisLayerNormalization(tf.keras.layers.Layer):
+class WithBiasLayerNormalization(tf.keras.layers.Layer):
     def __init__(self, dim, epsilon=1e-5):
-        super(WithBaisLayerNormalization, self).__init__()
+        super(WithBiasLayerNormalization, self).__init__()
         self.epsilon = epsilon
         self.dim = dim
 
@@ -166,8 +166,8 @@ class TransformerBlock(tf.keras.layers.Layer):
         self.layernorm_type = layernorm_type
 
         if self.layernorm_type == 'withbias':
-            self.ln1 = WithBaisLayerNormalization(self.dims)
-            self.ln2 = WithBaisLayerNormalization(self.dims)
+            self.ln1 = WithBiasLayerNormalization(self.dims)
+            self.ln2 = WithBiasLayerNormalization(self.dims)
         else:
             self.ln1 = BiasFreeLayerNormalization(self.dims)
             self.ln2 = BiasFreeLayerNormalization(self.dims)
